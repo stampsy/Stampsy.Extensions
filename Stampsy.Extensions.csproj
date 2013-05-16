@@ -44,6 +44,7 @@
     <Compile Include="UIKit\UIKitExtensions.cs" />
     <Compile Include="UIKit\BackgroundTaskHandle.cs" />
     <Compile Include="Foundation\FoundationExtensions.cs" />
+    <Compile Include="Foundation\UserSettings.cs" />
   </ItemGroup>
   <ProjectExtensions>
     <MonoDevelop>
