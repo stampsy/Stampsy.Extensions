@@ -25,3 +25,6 @@ Contributions are welcome, if they satisfy both criteria.
        .WithNetworkIndicator () // takes care of UIApplication.NetworkActivityIndicatorVisible
        .RegisterAsBackgroundTask (); // does the UIApplication.BeginBackgroundTask dance
   
+#### Misc
+
+    var titleView = bar.Subviews.FirstOrDefault (v => v.GetClassName () == "UINavigationItemView");
