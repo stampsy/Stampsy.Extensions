@@ -10,3 +10,18 @@ My rule of thumb for inclusion of a class or method is that:
 - it involves little to no abstraction and is a really thin wrapper above Apple classes.
 
 Contributions are welcome, if they satisfy both criteria.
+
+
+### Code Samples
+
+#### Reading and Writing iOS Settings
+
+    UserSettings.RegisterDefaultsFromSettingsBundle ();
+    bool god = UserSettings.Read<MySettings, bool> (MySettings.IsGod);
+    
+#### Task Extensions for UIKit
+    
+    Api.UploadAvatar (img)
+       .WithNetworkIndicator () // takes care of UIApplication.NetworkActivityIndicatorVisible
+       .RegisterAsBackgroundTask (); // does the UIApplication.BeginBackgroundTask dance
+  
