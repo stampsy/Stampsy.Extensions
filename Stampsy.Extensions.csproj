@@ -43,4 +43,13 @@
     <Compile Include="UIKit\NetworkIndicator.cs" />
     <Compile Include="UIKit\UIKitExtensions.cs" />
   </ItemGroup>
+  <ProjectExtensions>
+    <MonoDevelop>
+      <Properties>
+        <Policies>
+          <TextStylePolicy inheritsSet="VisualStudio" inheritsScope="text/plain" scope="text/plain" />
+        </Policies>
+      </Properties>
+    </MonoDevelop>
+  </ProjectExtensions>
 </Project>
