@@ -1,7 +1,7 @@
 using System;
 using System.Runtime.InteropServices;
 
-namespace Stampsy.Extensions
+namespace Stampsy.Extensions.Common
 {
     public static class CrashReporting
     {
