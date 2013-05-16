@@ -36,6 +36,17 @@ Api.UploadAvatar (img)
    .RegisterAsBackgroundTask (); // does the UIApplication.BeginBackgroundTask dance
 ```
 
+#### [Safely](http://stackoverflow.com/q/14499334/458193) Enabling Crash Reporters
+
+```c#
+CrashReporting.HookCrashReporterWithMono (() => {
+    // Using HockeyApp in this example
+    var manager = BITHockeyManager.SharedHockeyManager;
+    manager.Configure (HockeyAppId, null);
+    manager.StartManager ();
+});
+```
+
 #### Misc
 
 ```c#
