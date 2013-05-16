@@ -35,14 +35,15 @@
     <Reference Include="monotouch" />
   </ItemGroup>
   <ItemGroup>
-    <Folder Include="Resources\" />
     <Folder Include="UIKit\" />
+    <Folder Include="Foundation\" />
   </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
   <ItemGroup>
     <Compile Include="UIKit\NetworkIndicator.cs" />
     <Compile Include="UIKit\UIKitExtensions.cs" />
     <Compile Include="UIKit\BackgroundTaskHandle.cs" />
+    <Compile Include="Foundation\FoundationExtensions.cs" />
   </ItemGroup>
   <ProjectExtensions>
     <MonoDevelop>

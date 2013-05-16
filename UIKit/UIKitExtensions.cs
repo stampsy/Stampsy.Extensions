@@ -1,31 +1,22 @@
 using System;
-using System.Collections.Generic;
-using System.Linq;
+using System.Drawing;
 using System.Runtime.InteropServices;
 using System.Threading.Tasks;
 using MonoTouch;
 using MonoTouch.Foundation;
 using MonoTouch.UIKit;
-using System.Drawing;
 
 namespace Stampsy.Extensions.UIKit
 {
+    /// <summary>
+    /// Extensions to MonoTouch.UIKit.
+    /// </summary>
     public static class UIKitExtensions
     {
-        [DllImport (Constants.ObjectiveCLibrary)]
-        static extern IntPtr object_getClassName (IntPtr obj);
-
         [DllImport (Constants.SystemLibrary)]
         static extern int sysctlbyname ([MarshalAs(UnmanagedType.LPStr)] string property, IntPtr output, IntPtr oldLen, IntPtr newp, uint newlen);
 
         const string HardwareProperty = "hw.machine";
-
-        /// <summary>
-        /// Returns Objective C class name for a given object.
-        /// </summary>
-        public static string GetClassName (this NSObject o) {
-            return Marshal.PtrToStringAuto (object_getClassName (o.Handle));
-        }
 
         /// <summary>
         /// Returns a platform identifier, such as "iPhone5,2", "iPad2,5" or "x86_64".
@@ -88,35 +79,12 @@ namespace Stampsy.Extensions.UIKit
         public static UIImage ScaleOpaque (this UIImage img, SizeF newSize, float scale = 0)
         {
             UIGraphics.BeginImageContextWithOptions (newSize, true, scale);
+
             img.Draw (new RectangleF (0f, 0f, newSize.Width, newSize.Height));
-            UIImage imageFromCurrentImageContext = UIGraphics.GetImageFromCurrentImageContext ();
+            var scaled = UIGraphics.GetImageFromCurrentImageContext ();
+
             UIGraphics.EndImageContext ();
-
-            return imageFromCurrentImageContext;
-        }
-
-        /// <summary>
-        /// Creates an index path from <paramref name="index"/>.
-        /// </summary>
-        public static NSIndexPath ToRow (this int index)
-        {
-            return NSIndexPath.FromRowSection (index, 0);
-        }
-
-        /// <summary>
-        /// Creates a single-element index path array from <paramref name="index"/>.
-        /// </summary>
-        public static NSIndexPath [] ToRows (this int index)
-        {
-            return new [] { index.ToRow () };
-        }
-
-        /// <summary>
-        /// Creates an index path array from a sequence of indices.
-        /// </summary>
-        public static NSIndexPath [] ToRows (this IEnumerable<int> indices)
-        {
-            return indices.Select (ToRow).ToArray ();
+            return scaled;
         }
 
         /// <summary>
