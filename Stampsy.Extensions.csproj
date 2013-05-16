@@ -42,6 +42,7 @@
   <ItemGroup>
     <Compile Include="UIKit\NetworkIndicator.cs" />
     <Compile Include="UIKit\UIKitExtensions.cs" />
+    <Compile Include="UIKit\BackgroundTaskHandle.cs" />
   </ItemGroup>
   <ProjectExtensions>
     <MonoDevelop>

@@ -16,5 +16,21 @@ namespace Stampsy.Extensions.UIKit
             NetworkIndicator.RegisterTask (task);
             return task;
         }
+
+        public static Task RegisterAsBackgroundTask (this Task task)
+        {
+            var bg = new BackgroundTaskHandle ();
+            task.ContinueWith (t => bg.Dispose (), TaskContinuationOptions.ExecuteSynchronously);
+
+            return task;
+        }
+
+        public static Task<T> RegisterAsBackgroundTask<T> (this Task<T> task)
+        {
+            var bg = new BackgroundTaskHandle ();
+            task.ContinueWith (t => bg.Dispose (), TaskContinuationOptions.ExecuteSynchronously);
+
+            return task;
+        }
     }
 }
