@@ -88,6 +88,24 @@ namespace Stampsy.Extensions.UIKit
         }
 
         /// <summary>
+        /// Determines if specified orientation is landscape.
+        /// </summary>
+        public static bool IsLandscape (this UIInterfaceOrientation orientation)
+        {
+            return orientation == UIInterfaceOrientation.LandscapeLeft
+                || orientation == UIInterfaceOrientation.LandscapeLeft;
+        }
+
+        /// <summary>
+        /// Determines if specified orientation is portrait.
+        /// </summary>
+        public static bool IsPortrait (this UIInterfaceOrientation orientation)
+        {
+            return orientation == UIInterfaceOrientation.Portrait
+                || orientation == UIInterfaceOrientation.PortraitUpsideDown;
+        }
+
+        /// <summary>
         /// Makes network indicator visible until <paramref name="task"/> is completed.
         /// If <paramref name="task"/> is already completed, nothing happens.
         /// </summary>
