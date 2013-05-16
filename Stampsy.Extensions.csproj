@@ -37,6 +37,7 @@
   <ItemGroup>
     <Folder Include="UIKit\" />
     <Folder Include="Foundation\" />
+    <Folder Include="Common\" />
   </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
   <ItemGroup>
@@ -45,6 +46,7 @@
     <Compile Include="UIKit\BackgroundTaskHandle.cs" />
     <Compile Include="Foundation\FoundationExtensions.cs" />
     <Compile Include="Foundation\UserSettings.cs" />
+    <Compile Include="Common\CrashReporting.cs" />
   </ItemGroup>
   <ProjectExtensions>
     <MonoDevelop>
