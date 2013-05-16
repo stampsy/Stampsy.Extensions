@@ -15,17 +15,23 @@ namespace Stampsy.Extensions.Foundation
     ///
     /// <see cref="Read"/>, <see cref="Write"/> and <see cref="Remove"/> presume you have an enumeration with keys named as preference keys, for example:
     /// <code>
-    /// enum MySettings {
+    ///
+    ///
+    /// enum MySetting {
     ///     MuteNotifications,
     ///     GodMode,
     ///     UserId
     /// }
     ///
-    /// UserSettings.RegisterDefaultsFromSettingsBundle ();
-    /// bool god = UserSettings.Read<MySettings, bool> (MySettings.GodMode);
+    /// using MySettings = Stampsy.Extensions.Foundation.UserSettings<MySetting>
+    ///
+    /// MySettings.RegisterDefaultsFromSettingsBundle ();
+    /// bool god = MySettings.Read<bool> (MySetting.GodMode);
     /// </code>
     /// </remarks>
-    public static class UserSettings
+    /// <typeparam name="TSettingsEnum">Enum that contains preference keys.</typeparam>
+    public static class UserSettings<TSettingsEnum>
+        where TSettingsEnum : struct
     {
         static NSUserDefaults StandardDefaults {
             get { return NSUserDefaults.StandardUserDefaults; }
@@ -67,8 +73,7 @@ namespace Stampsy.Extensions.Foundation
         /// Registers arbitrary defaults with <see cref="NSUserDefaults"/>.
         /// Call this method in your <c>AppDelegate</c>'s <c>FinishedLaunching</c> override.
         /// </summary>
-        public static void RegisterDefaults<TSettingsEnum> (Dictionary<TSettingsEnum, object> defaults)
-            where TSettingsEnum : struct
+        public static void RegisterDefaults (Dictionary<TSettingsEnum, object> defaults)
         {
             var keys = defaults.Keys.Select (s => (NSString) s.ToString ()).ToArray ();
             var values = defaults.Values.ToArray ();
@@ -90,9 +95,7 @@ namespace Stampsy.Extensions.Foundation
         /// </summary>
         /// <param name="setting">The name of enum value will be used as preference key.</param>
         /// <typeparam name="TPreference">The type of preference value.</typeparam>
-        /// <typeparam name="TSettingsEnum">Enum that contains preference keys.</typeparam>
-        public static TPreference Read<TPreference, TSettingsEnum> (TSettingsEnum setting)
-            where TSettingsEnum : struct
+        public static TPreference Read<TPreference> (TSettingsEnum setting)
         {
             var key = setting.ToString ();
 
@@ -128,9 +131,7 @@ namespace Stampsy.Extensions.Foundation
         /// <param name="value">The value to write</param>
         /// <param name="synchronize">If set to <c>true<c/>, the change will immediately get flushed to the disk.</param>
         /// <typeparam name="TPreference">The type of preference value.</typeparam>
-        /// <typeparam name="TSettingsEnum">Enum that contains preference keys.</typeparam>
-        public static void Write<TPreference, TSettingsEnum> (TSettingsEnum setting, TPreference value, bool synchronize = true)
-            where TSettingsEnum : struct
+        public static void Write<TPreference> (TSettingsEnum setting, TPreference value, bool synchronize = true)
         {
             var key = setting.ToString ();
 
@@ -163,9 +164,7 @@ namespace Stampsy.Extensions.Foundation
         /// </summary>
         /// <param name="setting">The name of enum value will be used as preference key.</param>
         /// <param name="synchronize">If set to <c>true<c/>, the change will immediately get flushed to the disk.</param>
-        /// <typeparam name="TSettingsEnum">Enum that contains preference keys.</typeparam>
-        public static void Remove<TSettingsEnum> (TSettingsEnum setting, bool synchronize = true)
-            where TSettingsEnum : struct
+        public static void Remove (TSettingsEnum setting, bool synchronize = true)
         {
             Remove (new [] { setting }, synchronize);
         }
@@ -176,8 +175,7 @@ namespace Stampsy.Extensions.Foundation
         /// <remarks>To control whether to synchronize settings, user other overloads.</remarks>
         /// <param name="settings">The name of enum value will be used as preference key.</param>
         /// <typeparam name="TSettingsEnum">Enum that contains preference keys.</typeparam>
-        public static void Remove<TSettingsEnum> (params TSettingsEnum [] settings)
-            where TSettingsEnum : struct
+        public static void Remove (params TSettingsEnum [] settings)
         {
             Remove (settings, true);
         }
@@ -187,8 +185,7 @@ namespace Stampsy.Extensions.Foundation
         /// </summary>
         /// <param name="setting">The name of enum value will be used as preference key.</param>
         /// <typeparam name="TSettingsEnum">Enum that contains preference keys.</typeparam>
-        public static void Remove<TSettingsEnum> (TSettingsEnum [] settings, bool synchronize = true)
-            where TSettingsEnum : struct
+        public static void Remove (TSettingsEnum [] settings, bool synchronize = true)
         {
             foreach (var setting in settings) {
                 StandardDefaults.RemoveObject (setting.ToString ());
