@@ -38,9 +38,8 @@ namespace Stampsy.Extensions.UIKit
             BeginActivity ();
 
             task.ContinueWith (t => {
-				EndActivity ();
-			}, TaskContinuationOptions.ExecuteSynchronously);
+                EndActivity ();
+            }, TaskContinuationOptions.ExecuteSynchronously);
         }
     }
 }
-
