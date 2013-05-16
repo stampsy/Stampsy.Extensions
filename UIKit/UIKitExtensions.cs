@@ -6,6 +6,7 @@ using System.Threading.Tasks;
 using MonoTouch;
 using MonoTouch.Foundation;
 using MonoTouch.UIKit;
+using System.Drawing;
 
 namespace Stampsy.Extensions.UIKit
 {
@@ -78,6 +79,20 @@ namespace Stampsy.Extensions.UIKit
             task.ContinueWith (t => bg.Dispose (), TaskContinuationOptions.ExecuteSynchronously);
 
             return task;
+        }
+
+        /// <summary>
+        /// Scales the image up or down without preserving alpha channel.
+        /// This method is slightly faster than <see cref="UIImage.Scale"/>.
+        /// </summary>
+        public static UIImage ScaleOpaque (this UIImage img, SizeF newSize, float scale = 0)
+        {
+            UIGraphics.BeginImageContextWithOptions (newSize, true, scale);
+            img.Draw (new RectangleF (0f, 0f, newSize.Width, newSize.Height));
+            UIImage imageFromCurrentImageContext = UIGraphics.GetImageFromCurrentImageContext ();
+            UIGraphics.EndImageContext ();
+
+            return imageFromCurrentImageContext;
         }
 
         /// <summary>
